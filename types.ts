@@ -5,3 +5,7 @@ export type Note = {
   created_at: string;
 };
 
+export type NoteBase = {
+  title: string;
+  content: string;
+};

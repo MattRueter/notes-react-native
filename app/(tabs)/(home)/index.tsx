@@ -1,16 +1,19 @@
 import { getNotes } from "@/api/api";
 import { Note } from "@/types";
-import { useEffect, useState } from "react";
+import { useFocusEffect } from "expo-router";
+import { useCallback, useState } from "react";
 import { ActivityIndicator, FlatList, StyleSheet, Text, View } from "react-native";
 
 
 export default function Index() {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<Note[]>([])
-  
-  useEffect (() =>{
-    getNotes(setData, setIsLoading)
-  },[]);
+
+  useFocusEffect(
+    useCallback (() =>{
+      getNotes(setData, setIsLoading)
+    },[])
+  );
   
   return (
     <View
