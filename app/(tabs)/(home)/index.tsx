@@ -1,32 +1,15 @@
+import { getNotes } from "@/api/api";
+import { Note } from "@/types";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, StyleSheet, Text, View } from "react-native";
 
-type Note = {
-  id: string;
-  title: string;
-  content: string;
-  created_at: string;
-}
 
 export default function Index() {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<Note[]>([])
   
-  const getNotes = async () => {
-    try{
-      const response = await fetch('http://localhost:5000/notes');
-      const notes = await response.json();
-      setData(notes)
-    }catch(err){
-      console.error(err);
-    }finally{
-      setIsLoading(false)
-    }
-  
-  }
-
   useEffect (() =>{
-    getNotes()
+    getNotes(setData, setIsLoading)
   },[]);
   
   return (
